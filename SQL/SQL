@@ -1,0 +1,18 @@
+1. SELECT * FROM Customer where Name like 'Joe%'
+2. select * from OrderProduct op 
+		join Order o on o.OrderId = op.OrderId
+		join Customer c on c.CustomerId = o.CustomerId
+		join Product p on p.ProductId = op.ProductId
+	where c.Name like 'Joe%' and o.CreatedAt >= Convert(DateTime,'11/1/2016',120)
+
+3. select Sum(p.Price) from OrderProduct op 
+		join Order o on o.OrderId = op.OrderId
+		join Customer c on c.CustomerId = o.CustomerId
+		join Product p on p.ProductId = op.ProductId
+	where c.Name like 'Joe%' 
+	
+4. SELECT Name, (Select count(*) from Order o where o.CustomerId = c.CustomerId 
+						group by o.CustomerId
+						having count(*) > 1
+							) 
+		FROM Customer c
